@@ -21,8 +21,6 @@ import org.videolan.libvlc.util.VLCVideoLayout;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
-
 public class HomeFragment extends Fragment {
 
     private String videoURL = "";
@@ -32,28 +30,30 @@ public class HomeFragment extends Fragment {
     private LibVLC mLibVLC = null;
     private MediaPlayer mMediaPlayer = null;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener_ip_address;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+
+        String ip_address = sharedPreferences.getString("video_ip_address", "");
+
+        setVideoURL(ip_address);
+
+        sharedPreferenceChangeListener_ip_address = (sharedPreferences, key) -> {
+            if (key.equals("video_ip_address")) {
+                setVideoURL(key);
+            }
+        };
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener_ip_address);
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-
-        String ip_address = sharedPreferences.getString("video_ip_address", "");
-
-        setVideoURL(ip_address);
-
-        sharedPreferences.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if (key.equals("video_ip_address")) {
-                    setVideoURL(key);
-                }
-            }
-        });
 
         final ArrayList<String> args = new ArrayList<>();
         mLibVLC = new LibVLC(requireContext(), args);
@@ -95,6 +95,7 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
         mMediaPlayer.release();
         mLibVLC.release();
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener_ip_address);
     }
 
     private void setVideoURL(String videoURL) {
