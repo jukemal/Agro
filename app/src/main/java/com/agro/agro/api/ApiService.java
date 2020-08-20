@@ -6,6 +6,7 @@ import com.agro.agro.models.ApiResponse;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -19,5 +20,5 @@ public interface ApiService {
     public Call<ApiResponse> getDataLast(@Path("feed") String feed);
 
     @POST("feeds/{feed}/data")
-    public Call<ApiRequest> postData(@Path("feed") String feed);
+    public Call<ApiResponse> postData(@Path("feed") String feed, @Body ApiRequest request);
 }

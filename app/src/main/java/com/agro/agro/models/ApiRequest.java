@@ -1,5 +1,6 @@
 package com.agro.agro.models;
 
+import com.agro.agro.utils.EnumButtonStatus;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,42 +8,42 @@ import java.io.Serializable;
 
 public class ApiRequest implements Serializable {
 
+    @SerializedName("feed_key")
+    @Expose
+    private String feedKey;
     @SerializedName("value")
     @Expose
-    private String value;
-    @SerializedName("feed_id")
-    @Expose
-    private Long feedId;
+    private EnumButtonStatus value;
 
     public ApiRequest() {
     }
 
-    public ApiRequest(String value, Long feedId) {
+    public ApiRequest(String feedKey, EnumButtonStatus value) {
+        this.feedKey = feedKey;
         this.value = value;
-        this.feedId = feedId;
     }
 
-    public String getValue() {
+    public String getFeedKey() {
+        return feedKey;
+    }
+
+    public void setFeedKey(String feedKey) {
+        this.feedKey = feedKey;
+    }
+
+    public EnumButtonStatus getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(EnumButtonStatus value) {
         this.value = value;
-    }
-
-    public Long getFeedId() {
-        return feedId;
-    }
-
-    public void setFeedId(Long feedId) {
-        this.feedId = feedId;
     }
 
     @Override
     public String toString() {
         return "ApiRequest{" +
-                "value='" + value + '\'' +
-                ", feedId=" + feedId +
+                "feedKey='" + feedKey + '\'' +
+                ", value=" + value +
                 '}';
     }
 }
