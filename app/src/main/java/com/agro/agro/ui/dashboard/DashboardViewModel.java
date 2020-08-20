@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+// ViewModel for acquiring data from API.
 public class DashboardViewModel extends ViewModel {
 
     private MutableLiveData<List<ApiResponse>> humidityDataList;
@@ -50,12 +51,14 @@ public class DashboardViewModel extends ViewModel {
 
         showError = new MutableLiveData<>();
 
+        // Getting initial data from API.
         makeApiCall("humidity");
         makeApiCall("temperature");
         makeApiCall("soil-moisture");
 
         disposableList = new ArrayList<>();
 
+        // Getting data from API periodically.
         disposableList.add(getLatestData("humidity", 10));
         disposableList.add(getLatestData("temperature", 10));
         disposableList.add(getLatestData("soil-moisture", 10));

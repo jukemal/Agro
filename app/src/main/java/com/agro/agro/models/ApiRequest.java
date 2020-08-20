@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+//Model for API request.
 public class ApiRequest implements Serializable {
 
     @SerializedName("feed_key")

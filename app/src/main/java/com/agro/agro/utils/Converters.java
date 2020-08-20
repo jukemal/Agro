@@ -4,6 +4,7 @@ import androidx.room.TypeConverter;
 
 import java.util.Date;
 
+// Converter for DAO class.
 public class Converters {
     @TypeConverter
     public static Date fromTimestamp(Long value) {

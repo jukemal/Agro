@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             Timber.plant(new Timber.DebugTree());
         }
 
+        //Checking whether adafruit io username and key is sat in settings.
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         String username = sharedPreferences.getString("adafruit_io_username", "");
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         assert username != null;
         assert key != null;
-        if (username.isEmpty() || key.isEmpty()) {
-            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getApplicationContext());
+        if (username.equals("") || key.equals("")) {
+            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
             materialAlertDialogBuilder.setTitle("Adafruit").setMessage("Set Adafruit IO Username and Key in Settings.")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
@@ -54,10 +55,13 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-        } else {
-            ApiServiceGenerator.setup(username, key);
+
+            materialAlertDialogBuilder.show();
         }
 
+        ApiServiceGenerator.setup(username, key);
+
+        // Checking whether database exists.
         DatabaseViewModel viewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
 
         viewModel.check().observe(this, new Observer<List<DateEntity>>() {

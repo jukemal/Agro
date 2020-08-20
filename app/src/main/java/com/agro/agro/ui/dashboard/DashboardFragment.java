@@ -45,12 +45,14 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // ViewModel for getting data from the API.
         DashboardViewModel dashboardViewModel = new ViewModelProvider(requireActivity()).get(DashboardViewModel.class);
 
         humidityChart = view.findViewById(R.id.humidityChart);
         temperatureChart = view.findViewById(R.id.temperatureChart);
         soilMoistureChart = view.findViewById(R.id.soilMoistureChart);
 
+        // Initializing humidity chart and adding starting values.
         dashboardViewModel.getHumidityDataList().observe(getViewLifecycleOwner(), new Observer<List<ApiResponse>>() {
             @Override
             public void onChanged(List<ApiResponse> apiResponses) {
@@ -64,6 +66,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Adding new data to chart.
         dashboardViewModel.getHumidityDataLast().observe(getViewLifecycleOwner(), new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
@@ -71,6 +74,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Initializing temperature chart and adding starting values.
         dashboardViewModel.getTemperatureDataList().observe(getViewLifecycleOwner(), new Observer<List<ApiResponse>>() {
             @Override
             public void onChanged(List<ApiResponse> apiResponses) {
@@ -84,6 +88,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Adding new data to chart.
         dashboardViewModel.getTemperatureDataLast().observe(getViewLifecycleOwner(), new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
@@ -91,6 +96,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Initializing moisture chart and adding starting values.
         dashboardViewModel.getSoilMoistureDataList().observe(getViewLifecycleOwner(), new Observer<List<ApiResponse>>() {
             @Override
             public void onChanged(List<ApiResponse> apiResponses) {
@@ -104,6 +110,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Adding new data to chart.
         dashboardViewModel.getSoilMoistureDataLast().observe(getViewLifecycleOwner(), new Observer<ApiResponse>() {
             @Override
             public void onChanged(ApiResponse apiResponse) {
@@ -111,6 +118,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        // Showing errors in toast.
         dashboardViewModel.getShowError().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -119,6 +127,7 @@ public class DashboardFragment extends Fragment {
         });
     }
 
+    // Chart Setup.
     private void initChart(LineChart chart) {
         chart.setTouchEnabled(true);
 
@@ -165,6 +174,7 @@ public class DashboardFragment extends Fragment {
         rightAxis.setEnabled(false);
     }
 
+    // adding data to chart.
     private void addEntry(LineChart chart, ApiResponse entry) {
 
         LineData data = chart.getData();
@@ -193,6 +203,7 @@ public class DashboardFragment extends Fragment {
         }
     }
 
+    // Create data set.
     private LineDataSet createSet() {
 
         LineDataSet set = new LineDataSet(null, "");

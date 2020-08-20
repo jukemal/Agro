@@ -62,7 +62,6 @@ public class HomeFragment extends Fragment {
 
         DatabaseViewModel viewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
 
-
         String ip_address = sharedPreferences.getString("video_ip_address", "");
 
         setVideoURL(ip_address);
@@ -82,27 +81,33 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Setting up video player.
         final ArrayList<String> args = new ArrayList<>();
         mLibVLC = new LibVLC(requireContext(), args);
         mMediaPlayer = new MediaPlayer(mLibVLC);
 
         mVideoLayout = view.findViewById(R.id.video_layout);
 
+        // Setting up switch.
         SwitchMaterial switchMaterial = view.findViewById(R.id.switch_fertilize);
 
         DatabaseViewModel viewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
 
+        // Calculating date difference.
         viewModel.check().observe(getViewLifecycleOwner(), new Observer<List<DateEntity>>() {
             @Override
             public void onChanged(List<DateEntity> dateEntities) {
                 Timber.e("Da : %s", dateEntities.toString());
 
-                long diff = Math.abs(Calendar.getInstance().getTime().getTime() - dateEntities.get(0).date.getTime());
-                diffDays = diff / (24 * 60 * 60 * 1000);
-                Timber.e("Date Difference : %s", diffDays);
+                if (!dateEntities.isEmpty()) {
+                    long diff = Math.abs(Calendar.getInstance().getTime().getTime() - dateEntities.get(0).date.getTime());
+                    diffDays = diff / (24 * 60 * 60 * 1000);
+                    Timber.e("Date Difference : %s", diffDays);
+                }
             }
         });
 
+        // Listing for switch change.
         switchMaterial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("CheckResult")
             @Override

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+// Model for API response.
 public class ApiResponse implements Serializable {
 
     @SerializedName("id")

@@ -11,7 +11,8 @@ import com.agro.agro.dao.DateDao;
 import com.agro.agro.entity.DateEntity;
 import com.agro.agro.utils.Converters;
 
-@Database(entities = {DateEntity.class}, version = 1)
+// Database configuration for room database.
+@Database(entities = {DateEntity.class}, version = 1,exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+// Entity class for room database.
 @Entity(tableName = "date_entity")
 public class DateEntity {
     @PrimaryKey

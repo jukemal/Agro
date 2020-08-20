@@ -23,6 +23,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
+//ViewModel for accessing database.
 public class DatabaseViewModel extends AndroidViewModel {
 
     private AppDatabase appDatabase;

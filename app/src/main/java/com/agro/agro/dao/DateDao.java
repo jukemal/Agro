@@ -14,6 +14,7 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
+// Data access object for room database.
 @Dao
 public interface DateDao {
 
