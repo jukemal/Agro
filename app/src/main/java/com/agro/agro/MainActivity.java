@@ -10,8 +10,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,13 +17,9 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.agro.agro.api.ApiServiceGenerator;
-import com.agro.agro.entity.DateEntity;
-import com.agro.agro.viewmodels.DatabaseViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -67,16 +61,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ApiServiceGenerator.setup(username, key);
-
-        // Checking whether database exists.
-        DatabaseViewModel viewModel = new ViewModelProvider(this).get(DatabaseViewModel.class);
-
-        viewModel.check().observe(this, new Observer<List<DateEntity>>() {
-            @Override
-            public void onChanged(List<DateEntity> dateEntities) {
-                Timber.e("Da : %s", dateEntities.toString());
-            }
-        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
