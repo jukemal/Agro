@@ -2,9 +2,13 @@ package com.agro.agro;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +23,7 @@ import com.agro.agro.entity.DateEntity;
 import com.agro.agro.viewmodels.DatabaseViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -27,6 +32,8 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @SuppressLint("CheckResult")
     @Override
@@ -83,9 +90,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar, menu);
+        return true;
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_log_out) {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+
+            builder.setMessage("Do you want to Log Off?")
+                    .setTitle("Log Off")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            firebaseAuth.signOut();
+                            Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+
+            builder.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

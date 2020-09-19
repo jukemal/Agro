@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "608077066460",
+    "firebase_url": "https://argo-f448a.firebaseio.com",
+    "project_id": "argo-f448a",
+    "storage_bucket": "argo-f448a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608077066460:android:15a55260019ab907f28419",
+        "android_client_info": {
+          "package_name": "com.agro.agro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608077066460-bm8p4qlmki1mnktrboh9kqvcb1duio0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3PQ-nBPovnXMBKzeAeZ2ApksiB2CoeBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608077066460-bm8p4qlmki1mnktrboh9kqvcb1duio0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
