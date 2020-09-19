@@ -84,15 +84,20 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
-
-        <Button
+        <com.kusu.loadingbutton.LoadingButton
             android:id="@+id/buttonRegister"
             android:layout_width="215dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/buttonz"
-            android:text="REGISTER"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="30dp"
+            android:text="Register"
+            android:textColor="@color/white"
+            app:lb_buttonColor="@color/colorPrimary"
+            app:lb_isShadowEnable="true"
+            app:lb_isCircular="true"
+            app:lb_loaderColor="@color/colorAccent"
+            app:lb_shadowColor="@color/colorPrimaryDark"
+            app:lb_shadowHeight="5dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

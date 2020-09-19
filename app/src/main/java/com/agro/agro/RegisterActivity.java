@@ -1,5 +1,6 @@
 package com.agro.agro;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.kusu.loadingbutton.LoadingButton;
 
 /*REGISTER */
 
@@ -25,20 +27,26 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
+        }
+
         EditText txtName = findViewById(R.id.txtName);
         EditText txtEmailAddress = findViewById(R.id.textRegisterEmailAddress);
         EditText txtPassword = findViewById(R.id.textRegisterPassword);
 
-        Button buttonRegister = findViewById(R.id.buttonRegister);
+        LoadingButton buttonRegister = (LoadingButton) findViewById(R.id.buttonRegister);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonRegister.showLoading();
                 final String name = txtName.getText().toString();
                 final String email = txtEmailAddress.getText().toString();
                 final String password = txtPassword.getText().toString();
 
                 if (email.isEmpty() || name.isEmpty() || password.isEmpty()) {
+                    buttonRegister.hideLoading();
                     if (email.isEmpty()) {
                         txtEmailAddress.setError("Enter Your Email Address.");
                         txtEmailAddress.requestFocus();
@@ -68,8 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         finish();
                                     } else {
+                                        buttonRegister.hideLoading();
                                         Toast.makeText(getApplicationContext(), "Registration Unsuccessful, Please Try Again", Toast.LENGTH_SHORT).show();
-
                                     }
                                 }
                             });

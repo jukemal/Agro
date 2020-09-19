@@ -19,7 +19,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/plants"
             app:civ_border_color="#349C1E"
             app:civ_border_width="5dp" />
@@ -66,25 +66,36 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
-        <Button
+        <com.kusu.loadingbutton.LoadingButton
             android:id="@+id/buttonLogin"
             android:layout_width="215dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/buttonz"
-            android:text="LOGIN"
-            android:textColor="@color/white" />
+            android:text="Login"
+            android:textColor="@color/white"
+            app:lb_buttonColor="@color/colorPrimary"
+            app:lb_isShadowEnable="true"
+            app:lb_isCircular="true"
+            app:lb_loaderColor="@color/colorAccent"
+            app:lb_shadowColor="@color/colorPrimaryDark"
+            app:lb_shadowHeight="5dp" />
 
-        <Button
+        <com.kusu.loadingbutton.LoadingButton
             android:id="@+id/buttonLoginRegister"
             android:layout_width="215dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:background="@drawable/buttonz"
-            android:text="REGISTER"
-            android:textColor="@color/white" />
+            android:layout_marginBottom="20dp"
+            android:text="Register"
+            android:textColor="@color/white"
+            app:lb_buttonColor="@color/colorPrimary"
+            app:lb_isShadowEnable="true"
+            app:lb_isCircular="true"
+            app:lb_loaderColor="@color/colorAccent"
+            app:lb_shadowColor="@color/colorPrimaryDark"
+            app:lb_shadowHeight="5dp" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

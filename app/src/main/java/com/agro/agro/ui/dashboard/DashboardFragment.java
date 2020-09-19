@@ -22,7 +22,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -142,7 +141,7 @@ public class DashboardFragment extends Fragment {
         chart.setPinchZoom(true);
 
         // set an alternative background color
-        chart.setBackgroundColor(WHITE);
+        chart.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
 
 //        chart.animateX(500);
 
@@ -158,6 +157,7 @@ public class DashboardFragment extends Fragment {
         xl.setDrawGridLines(false);
         xl.setAvoidFirstLastClipping(true);
         xl.setEnabled(true);
+        xl.setTextColor(getResources().getColor(R.color.white));
         xl.setValueFormatter(new ValueFormatter() {
 
             @Override
@@ -169,9 +169,12 @@ public class DashboardFragment extends Fragment {
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setDrawGridLines(true);
+        leftAxis.setTextColor(getResources().getColor(R.color.white));
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);
+
+        chart.getLegend().setTextColor(getResources().getColor(R.color.white));
     }
 
     // adding data to chart.
@@ -208,13 +211,13 @@ public class DashboardFragment extends Fragment {
 
         LineDataSet set = new LineDataSet(null, "");
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setColor(ColorTemplate.getHoloBlue());
+        set.setColor(getResources().getColor(R.color.blue));
         set.setCircleColor(RED);
         set.setLineWidth(2f);
         set.setCircleRadius(4f);
         set.setFillAlpha(65);
-        set.setFillColor(ColorTemplate.getHoloBlue());
-        set.setHighLightColor(rgb(244, 117, 117));
+        set.setFillColor(RED);
+        set.setHighLightColor(rgb(255, 0, 0));
         set.setValueTextColor(WHITE);
         set.setValueTextSize(9f);
         set.setDrawValues(false);

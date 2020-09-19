@@ -1,6 +1,7 @@
 package com.agro.agro;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.kusu.loadingbutton.LoadingButton;
 
 /*LOGIN */
 
@@ -26,20 +28,26 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
+        }
 
         final EditText txtEmail = findViewById(R.id.textLoginEmail);
         final EditText txtPassword = findViewById(R.id.textLoginPassword);
 
-        Button buttonLogin = findViewById(R.id.buttonLogin);
+        LoadingButton buttonLogin = (LoadingButton) findViewById(R.id.buttonLogin);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonLogin.showLoading();
+
                 String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
 
                 //Input Validation
                 if (email.isEmpty() || password.isEmpty()) {
+                    buttonLogin.hideLoading();
                     if (email.isEmpty()) {
                         txtEmail.setError("Please Enter Your Email.");
                         txtEmail.requestFocus();
@@ -64,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else {
+                                        buttonLogin.hideLoading();
                                         Toast.makeText(LoginActivity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -72,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonRegister = findViewById(R.id.buttonLoginRegister);
+        LoadingButton buttonRegister = (LoadingButton) findViewById(R.id.buttonLoginRegister);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
